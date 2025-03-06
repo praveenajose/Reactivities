@@ -10,19 +10,21 @@ import {
   Image,
   Segment,
 } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
 
-interface Props {
-  activity: Activity;
-  cancelActivity: () => void;
-  openForm: (id: string) => void;
-}
+import { useStore } from "../../../app/stores/store";
+import LoadingComponent from "../../../app/layout/LoadindComponents";
+import { observer } from "mobx-react-lite";
 
-export default function ActivityDetails({
-  activity,
-  cancelActivity,
-  openForm,
-}: Props) {
+export default observer(function ActivityDetails() {
+  const { activityStore } = useStore();
+  const {
+    selectedActivity: activity,
+    openForm,
+    cancelSelectActivity,
+  } = activityStore;
+
+  if (!activity) return <LoadingComponent />;
+
   return (
     <Segment clearing>
       <Card fluid>
@@ -43,7 +45,7 @@ export default function ActivityDetails({
               content="Edit"
             />
             <Button
-              onClick={cancelActivity}
+              onClick={cancelSelectActivity}
               basic
               color="grey"
               content="Cancel"
@@ -53,4 +55,4 @@ export default function ActivityDetails({
       </Card>
     </Segment>
   );
-}
+});

@@ -1,4 +1,5 @@
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
 {
@@ -7,6 +8,9 @@ namespace Persistence
         public static async Task SeedData(DataContext context)
         {
             if (context.Activities.Any()) return;
+
+            //context.Activities.RemoveRange(context.Activities);
+            //await context.SaveChangesAsync();
             
             var activities = new List<Activity>
             {

@@ -11,6 +11,7 @@ axios.defaults.baseURL = "http://localhost:5000/api";
 axios.interceptors.response.use(async (response) => {
   try {
     await sleep(2000);
+    //console.log(response);
     return response;
   } catch (err) {
     console.log(err);
